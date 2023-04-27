@@ -1,0 +1,37 @@
+:root {
+  --main-color: #272838;
+  --text-color: #f9f8f8;
+  --main-bg-color: #f3de8a;
+}
+
+.blog-post {
+  color: var(--text-color);
+  background-color: var(--main-color);
+  border: 1px solid #000;
+  border-radius: 10px;
+  padding: 30px;
+}
+
+.blog-post__title {
+  padding: 15px 0;
+  font-size: 48px;
+}
+
+.blog-post__text {
+  padding: 15px 0;
+  font-size: 24px;
+}
+
+body {
+  margin: 0;
+}
+
+.container {
+  height: 100vh;
+  background-color: var(--main-bg-color);
+  flex-wrap: wrap;
+  place-content: center;
+  display: flex;
+}
+
+/*# sourceMappingURL=index.775e0083.css.map */
