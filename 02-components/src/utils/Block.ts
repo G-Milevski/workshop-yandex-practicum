@@ -2,7 +2,7 @@ import { EventBus } from "./EventBus";
 import { nanoid } from "nanoid";
 
 // Нельзя создавать экземпляр данного класса
-class Block {
+class Block<P = any> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -11,33 +11,21 @@ class Block {
   };
 
   public id = nanoid(6);
-  protected props: any;
-  protected state: any;
   public children: Record<string, Block>;
+
+  protected readonly props: P;
+  protected refs: { [key: string]: HTMLElement } = {};
+
   private eventBus: () => EventBus;
   private _element: HTMLElement | null = null;
-  protected refs: { [key: string]: HTMLElement } = {};
-  private _meta: { props: any };
 
-  /** JSDoc
-   * @param {string} tagName
-   * @param {Object} props
-   *
-   * @returns {void}
-   */
   constructor(propsWithChildren: any = {}) {
     const eventBus = new EventBus();
 
     const { props, children } = this._getChildrenAndProps(propsWithChildren);
 
-    this._meta = {
-      props,
-    };
-
     this.children = children;
-    this.state = {};
-    this.props = this._makePropsProxy(props);
-    this.state = this._makePropsProxy(this.state);
+    this.props = this._makePropsProxy(props || ({} as P));
 
     this.eventBus = () => eventBus;
 
@@ -117,7 +105,7 @@ class Block {
     return true;
   }
 
-  setProps = (nextProps: any) => {
+  setProps = (nextProps: Partial<P>) => {
     if (!nextProps) {
       return;
     }

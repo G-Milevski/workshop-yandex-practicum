@@ -1,10 +1,13 @@
-<form class="authorization-form">
-    {{{inputLogin}}}
-    {{{inputPassword}}}
-
-    {{{button}}}
-
-    {{#each fields}}
-        {{{this}}}
-    {{/each}}
-</form>
+<div class="form-container">
+    <form class="authorization-form">
+        <div class="form-control">
+            {{{inputLogin}}}
+        </div>
+        <div class="form-control">
+            {{{inputPassword}}}
+        </div>
+        <div class="form-control form-control__button">
+            {{{button}}}
+        </div>
+    </form>
+</div>

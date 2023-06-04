@@ -1,9 +1,9 @@
 import Block from "../../utils/Block";
 import template from "./home.hbs";
-import { Button } from "../../components/Button";
+import catAvatar from './cat2.webp';
 
 interface HomePageProps {
-  title: string;
+  userName?: string;
 }
 
 export class HomePage extends Block {
@@ -11,16 +11,9 @@ export class HomePage extends Block {
     super(props);
   }
 
-  init() {
-    this.children.button = new Button({
-      label: "Click me",
-      events: {
-        click: () => console.log("clicked"),
-      },
-    });
-  }
+  init() {}
 
   render() {
-    return this.compile(template, this.props);
+    return this.compile(template, {...this.props, avatar: catAvatar});
   }
 }

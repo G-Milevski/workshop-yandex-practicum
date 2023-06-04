@@ -5,7 +5,7 @@ import { AllPages } from "./pages/AllPages";
 import renderDOM from "./utils/renderDom";
 
 window.addEventListener("DOMContentLoaded", () => {
-  const homePage = new HomePage({ title: "Home page" });
+  const homePage = new HomePage({ userName: "Joen" });
   const LoginPage = new Login({
     inputs: [
       {

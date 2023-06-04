@@ -4,10 +4,10 @@ import template from "./input.hbs";
 export interface InputProps {
   label: string;
   type: string;
-  value: string;
+  value?: string;
   error?: string;
   events: {
-    change: (evt) => void;
+    change: (evt: any) => void;
   };
 }
 
@@ -17,7 +17,6 @@ export class Input extends Block {
   }
 
   render() {
-    console.log(this.props);
     return this.compile(template, this.props);
   }
 }
