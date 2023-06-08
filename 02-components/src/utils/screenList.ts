@@ -1,5 +1,5 @@
 import HomePage from '../pages/Home';
-import {Login} from '../pages/Login';
+import Login from '../pages/Login';
 import Description from '../pages/Description';
 import Block from '../core/Block';
 

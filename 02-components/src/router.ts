@@ -55,7 +55,6 @@ export function initRouter(router: HashRouter, store: Store<AppState>) {
     if (prevState.screen !== nextState.screen) {
       const Page = getScreenComponent(nextState.screen);
       renderDOM(new Page({}));
-      document.title = `App / ${Page.componentName}`;
     }
   });
 }

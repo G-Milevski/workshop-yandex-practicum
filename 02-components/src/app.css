@@ -22,3 +22,9 @@ html, body {
 #app {
     height: 100%;
 }
+
+.error {
+    padding: 5px 0 0 10px;
+    font-size: 14px;
+    color: #df6f6f;
+}

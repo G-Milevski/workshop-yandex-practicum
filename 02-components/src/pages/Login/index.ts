@@ -4,12 +4,13 @@ import Block from "../../core/Block";
 import template from "./login.hbs";
 
 import {login} from '../../services/auth'
+import { withStore } from "../../utils/withStore";
 
 interface ILogin {
   inputs: InputProps[];
 }
 
-export class Login extends Block {
+class Login extends Block {
   constructor(props: ILogin) {
     super(props);
   }
@@ -73,3 +74,5 @@ export class Login extends Block {
     return this.compile(template, this.props);
   }
 }
+
+export default withStore(Login)
