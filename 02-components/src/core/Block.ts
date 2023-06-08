@@ -1,5 +1,10 @@
-import { EventBus } from "./EventBus";
+import EventBus from "./EventBus";
 import { nanoid } from "nanoid";
+
+export interface BlockClass<P> extends Function {
+  new (props: P): Block<P>;
+  componentName?: string;
+}
 
 // Нельзя создавать экземпляр данного класса
 class Block<P = any> {
@@ -7,6 +12,7 @@ class Block<P = any> {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
     FLOW_CDU: "flow:component-did-update",
+    FLOW_CWU: 'flow:component-will-unmount',
     FLOW_RENDER: "flow:render",
   };
 
@@ -59,10 +65,26 @@ class Block<P = any> {
     });
   }
 
+    /**
+   * Хелпер, который проверяет, находится ли элемент в DOM дереве
+   * И есть нет, триггерит событие COMPONENT_WILL_UNMOUNT
+   */
+    _checkInDom() {
+      const elementInDOM = document.body.contains(this._element);
+  
+      if (elementInDOM) {
+        setTimeout(() => this._checkInDom(), 1000);
+        return;
+      }
+  
+      this.eventBus().emit(Block.EVENTS.FLOW_CWU, this.props);
+    }
+
   _registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CWU, this._componentWillUnmount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
@@ -82,6 +104,7 @@ class Block<P = any> {
   protected init() {}
 
   _componentDidMount() {
+    // this._checkInDom();
     this.componentDidMount();
   }
 
@@ -100,6 +123,13 @@ class Block<P = any> {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
+
+  _componentWillUnmount() {
+    this.eventBus().destroy();
+    this.componentWillUnmount();
+  }
+
+  componentWillUnmount() {}
 
   protected componentDidUpdate(oldProps: any, newProps: any) {
     return true;
@@ -176,7 +206,18 @@ class Block<P = any> {
   }
 
   getContent() {
-    return this.element!;
+      // Хак, чтобы вызвать CDM только после добавления в DOM
+      if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+        setTimeout(() => {
+          if (
+            this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE
+          ) {
+            this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+          }
+        }, 100);
+      }
+  
+      return this.element!;
   }
 
   _makePropsProxy(props: any) {

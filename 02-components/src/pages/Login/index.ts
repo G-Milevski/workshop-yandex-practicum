@@ -1,7 +1,9 @@
 import { Button } from "../../components/Button";
 import { Input, InputProps } from "../../components/input/input";
-import Block from "../../utils/Block";
+import Block from "../../core/Block";
 import template from "./login.hbs";
+
+import {login} from '../../services/auth'
 
 interface ILogin {
   inputs: InputProps[];
@@ -54,6 +56,11 @@ export class Login extends Block {
           }
 
           console.log({
+            login: loginValue,
+            password: passwordValue
+          })
+
+          window.store.dispatch(login, {
             login: loginValue,
             password: passwordValue
           })

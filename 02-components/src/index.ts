@@ -1,48 +1,44 @@
-import { HomePage } from "./pages/Home";
-import { Button } from "./components/Button";
-import { Login } from "./pages/Login";
-import { AllPages } from "./pages/AllPages";
-import renderDOM from "./utils/renderDom";
 
-window.addEventListener("DOMContentLoaded", () => {
-  const homePage = new HomePage({ userName: "Joen" });
-  const LoginPage = new Login({
-    inputs: [
-      {
-        events: {
-          change: () => {},
-        },
-        label: "test",
-        type: "text",
-        value: "t1",
-      },
-      {
-        events: {
-          change: () => {},
-        },
-        label: "test2",
-        type: "password",
-        value: "t2",
-      },
-    ],
+import { renderDOM, HashRouter, Store } from './core';
+import { initApp } from './services/initApp';
+import { AppState, defaultState } from './store';
+import { initRouter } from './router';
+
+import './app.css';
+
+declare global {
+  interface Window {
+    store: Store<AppState>;
+    router: HashRouter;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const store = new Store<AppState>(defaultState);
+  const router = new HashRouter();
+
+  /**
+   * Помещаем роутер и стор в глобальную область для доступа в хоках with*
+   * @warning Не использовать такой способ на реальный проектах
+   */
+  window.router = router;
+  window.store = store;
+
+  store.on('changed', (prevState, nextState) => {
+      console.log(
+        '%cstore updated',
+        'background: #222; color: #bada55',
+        nextState,
+      );
   });
 
-  const pages = [
-    { link: "/home", label: "home" },
-    { link: "/login", label: "login" },
-  ];
-  const allPages = new AllPages({ pages });
+  /**
+   * Инициализируем роутер
+   */
+  initRouter(router, store);
 
-  renderDOM(allPages, "#nav");
-
-  switch (window.location.pathname) {
-    case "/home":
-      renderDOM(homePage);
-      break;
-    case "/login":
-      renderDOM(LoginPage);
-      break;
-    default:
-      break;
-  }
+  /**
+   * Загружаем данные для приложения
+   */
+  store.dispatch(initApp);
 });
