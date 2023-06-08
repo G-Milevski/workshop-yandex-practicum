@@ -5,6 +5,7 @@ import template from "./login.hbs";
 
 import {login} from '../../services/auth'
 import { withStore } from "../../utils/withStore";
+import { withRouter } from "../../utils/withRouter";
 
 interface ILogin {
   inputs: InputProps[];
@@ -13,6 +14,9 @@ interface ILogin {
 class Login extends Block {
   constructor(props: ILogin) {
     super(props);
+    if(this.props.store.state.user) {
+      this.props.router.go('#home')
+    }
   }
 
   protected init(): void {
@@ -75,4 +79,4 @@ class Login extends Block {
   }
 }
 
-export default withStore(Login)
+export default withRouter(withStore(Login))

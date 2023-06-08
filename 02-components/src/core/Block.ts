@@ -104,7 +104,7 @@ class Block<P = any> {
   protected init() {}
 
   _componentDidMount() {
-    // this._checkInDom();
+    this._checkInDom();
     this.componentDidMount();
   }
 
@@ -129,7 +129,7 @@ class Block<P = any> {
     this.componentWillUnmount();
   }
 
-  componentWillUnmount() {}
+  public componentWillUnmount() {}
 
   protected componentDidUpdate(oldProps: any, newProps: any) {
     return true;
@@ -216,7 +216,7 @@ class Block<P = any> {
           }
         }, 100);
       }
-  
+
       return this.element!;
   }
 
