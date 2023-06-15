@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url(./components//Button/button.pcss);
+@import url(./components//input/input.pcss);
+@import url(./pages/Login/login.pcss);
+@import url(./pages/Home//home.pcss);
+
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
+html, body {
+    height: 100%;
+}
+
+#app {
+    height: 100%;
+}
+
+.error {
+    padding: 5px 0 0 10px;
+    font-size: 14px;
+    color: #df6f6f;
+}
