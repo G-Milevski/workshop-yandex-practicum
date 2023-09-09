@@ -118,6 +118,7 @@ class Block {
     return this._element;
   }
 
+
   private _render() {
     const fragment = this.compile(this.render(), this.props);
 

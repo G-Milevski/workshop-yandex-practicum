@@ -10,7 +10,7 @@ export class Input extends Block {
         super({
             ...props,
             events: {
-                blur: props.onBlur || (() => {})
+                blur: props.onBlur
             }
         })
     }

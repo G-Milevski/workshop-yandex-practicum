@@ -37,7 +37,7 @@
   .input__text-error {
     transform: translateY(-7px);
     color: var(--error-color);
-    font-size: 8px;
+    font-size: 12px;
     font-weight: 400;
     /* display: none; */
   }

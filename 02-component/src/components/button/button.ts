@@ -3,15 +3,17 @@ import Block from "../../core/Block";
 interface IProps {
     type: 'primary' | 'link',
     label: string,
-    page: string,
-    onClick: () => void
+    onClick?: () => void
 }
 
 export class Button extends Block {
     constructor(props: IProps) {
         super(props);
+    }
+
+    protected init(): void {
         this.props.events = {
-            click: this.props.onClick || (() => {})
+            click: this.props.onClick
         }
     }
 

@@ -9,19 +9,19 @@ export class InputField extends Block {
     }
     public value() {
         if (!this.validate()) {
-            return false;
-          }
-        return this.refs.input._element.value
+            return null;
+        }
+        return this.refs.input.element.value
     }
 
     private validate() {
-        const value = this.refs.input._element.value;
+        const value = this.refs.input.element.value;
         const error = this.props.validate?.(value);
         if (error) {
-            this.refs.errorLine.setProps({ error });
+            // this.refs.errorLine.setProps({ error });
             return false;
         }
-        this.refs.errorLine.setProps({ error: undefined });
+        // this.refs.errorLine.setProps({ error: undefined });
         return true;
     }
 
