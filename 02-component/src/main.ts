@@ -17,16 +17,16 @@ import { navigate } from './core/navigate';
 
 
 Handlebars.registerPartial('FormAuth', Components.FormAuth);
-Handlebars.registerPartial('ListCat', Components.ListCat);
-Handlebars.registerPartial('CatCard', Components.CatCard);
 
 registerComponent('Button', Components.Button);
 registerComponent('InputField', Components.InputField);
 registerComponent('Input', Components.Input);
 registerComponent('ErrorLine', Components.ErrorLine);
+registerComponent('CatCard', Components.CatCard);
+registerComponent('ListCat', Components.ListCatCards);
 
 
 
 
-document.addEventListener('DOMContentLoaded', () => navigate('login'));
+document.addEventListener('DOMContentLoaded', () => navigate('list'));
 

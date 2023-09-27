@@ -136,15 +136,23 @@ class Block {
   private compile(template: string, context: any) {
     const contextAndStubs = {...context, __refs: this.refs};
 
+    Object.entries(this.children).forEach(([key, child]) => {
+      contextAndStubs[key] = `<div data-id="${child.id}"></div>`;
+    })
+
     const html = Handlebars.compile(template)(contextAndStubs);
 
     const temp = document.createElement('template');
 
     temp.innerHTML = html;
-
     contextAndStubs.__children?.forEach(({embed}: any) => {
       embed(temp.content);
     });
+
+    Object.values(this.children).forEach((child) => {
+      const stub = temp.content.querySelector(`[data-id="${child.id}"]`);
+      stub?.replaceWith(child.getContent()!);
+    })
 
     return temp.content;
   }
