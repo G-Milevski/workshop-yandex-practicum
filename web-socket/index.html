@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module" src="./index.js"></script>
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        #chats {
+            min-height: 200px;
+            border: 1px solid black;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            border: 1px solid grey;
+            border-radius: 10px;
+            width: fit-content;
+            background-color: grey;
+            color: white;
+            padding: 5px;
+        }
+
+        .message.message_me {
+            align-self: end;
+            border-color: blue;
+            background-color: blue;
+        } 
+    </style>
+</head>
+<body>
+    <form class="login-form">
+        <label>
+            login
+            <input id="login" />
+        </label>
+        <label>
+            password
+            <input id="password" />
+        </label>
+        <button>login</button>
+    </form>
+    <div class="auth hidden">
+        <header>
+            <button class="logout">logout</button>
+        </header>
+        <div>user in system</div>
+
+        <p>List of chats</p>
+        <div id="select-chat-container"></div>
+
+        <div id="chats"></div>
+
+        <textarea id="type-messages"></textarea>
+        <button id="send-message">send message</button>
+    </div>
+</body>
+</html>
