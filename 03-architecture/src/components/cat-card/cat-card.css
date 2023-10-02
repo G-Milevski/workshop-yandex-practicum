@@ -1,0 +1,49 @@
+.card {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 12px 10px;
+    position: relative;
+    margin: 2px 0;
+}
+
+.card:hover {
+    background-color: var(--second-color);
+}
+
+.card .card__description {
+    padding: 1rem;
+}
+
+.card .card__author {
+    font-size: 2rem;
+}
+
+.card .card__message {
+    font-size: 1rem;
+}
+
+.card .card__avatar {
+    border-radius: 50%;
+}
+
+.card::after {
+    content: "";
+    width: 100%;
+    height: 1px;
+    background-color: var(--second-color);
+    position: absolute;
+    bottom: 0;
+  }
+
+.card .card__title {
+    font-size: 1.25rem;
+    font-size: bold;
+    padding: 10px 0;
+}
+
+.card .card__message {
+    font-size: 1rem;
+    padding: 10px 0;
+    font-style: italic;
+}
