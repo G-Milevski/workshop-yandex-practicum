@@ -6,10 +6,17 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "./node_modules/.bin/mocha"
   },
   "devDependencies": {
+    "@types/chai": "^4.3.9",
+    "@types/mocha": "^10.0.3",
+    "@types/node": "^20.8.7",
+    "chai": "^4.3.10",
     "handlebars": "4.7.8",
+    "jsdom": "^22.1.0",
+    "mocha": "^10.2.0",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   },
