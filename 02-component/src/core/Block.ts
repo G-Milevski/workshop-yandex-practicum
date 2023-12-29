@@ -2,39 +2,34 @@ import EventBus from "./EventBus";
 import {nanoid} from 'nanoid';
 import Handlebars from "handlebars";
 
-// Нельзя создавать экземпляр данного класса
-class Block {
+export type RefType = {
+  [key: string]: Element | Block<object>
+}
+
+export interface BlockClass<P extends object, R extends RefType> extends Function {
+  new (props: P): Block<P, R>;
+  componentName?: string;
+}
+
+class Block<Props extends object, Refs extends RefType = RefType> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
     FLOW_CDU: "flow:component-did-update",
+    FLOW_CWU: 'flow:component-will-unmount',
     FLOW_RENDER: "flow:render"
   };
 
   public id = nanoid(6);
-  protected props: any;
-  protected refs: Record<string, Block> = {};
-  public children: Record<string, Block>;
+  protected props: Props;
+  protected refs: Refs = {} as Refs;
+  private children: Block<object>[] = [];
   private eventBus: () => EventBus;
   private _element: HTMLElement | null = null;
-  private _meta: { props: any; };
 
-  /** JSDoc
-   * @param {string} tagName
-   * @param {Object} props
-   *
-   * @returns {void}
-   */
-  constructor(propsWithChildren: any = {}) {
+  constructor(props: Props = {} as Props) {
     const eventBus = new EventBus();
 
-    const {props, children} = this._getChildrenAndProps(propsWithChildren);
-
-    this._meta = {
-      props
-    };
-
-    this.children = children;
     this.props = this._makePropsProxy(props);
 
     this.eventBus = () => eventBus;
@@ -44,26 +39,11 @@ class Block {
     eventBus.emit(Block.EVENTS.INIT);
   }
 
-  _getChildrenAndProps(childrenAndProps: any) {
-    const props: Record<string, any> = {};
-    const children: Record<string, Block> = {};
-
-    Object.entries(childrenAndProps).forEach(([key, value]) => {
-      if (value instanceof Block) {
-        children[key] = value;
-      } else {
-        props[key] = value;
-      }
-    });
-
-    return {props, children};
-  }
-
   _addEvents() {
-    const {events = {}} = this.props as { events: Record<string, () => void> };
+    const {events = {}} = this.props;
 
     Object.keys(events).forEach(eventName => {
-      this._element?.addEventListener(eventName, events[eventName]);
+      this._element!.addEventListener(eventName, events[eventName]);
     });
   }
 
@@ -71,6 +51,7 @@ class Block {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CWU, this._componentWillUnmount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
@@ -84,11 +65,11 @@ class Block {
   }
 
   _componentDidMount() {
+    this._checkInDom();
     this.componentDidMount();
   }
 
-  componentDidMount() {
-  }
+  componentDidMount() {}
 
   public dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
@@ -105,6 +86,27 @@ class Block {
   protected componentDidUpdate(oldProps: any, newProps: any) {
     return true;
   }
+
+    /**
+   * Хелпер, который проверяет, находится ли элемент в DOM дереве
+   * И есть нет, триггерит событие COMPONENT_WILL_UNMOUNT
+   */
+    _checkInDom() {
+      const elementInDOM = document.body.contains(this._element);
+  
+      if (elementInDOM) {
+        setTimeout(() => this._checkInDom(), 1000);
+        return;
+      }
+  
+      this.eventBus().emit(Block.EVENTS.FLOW_CWU, this.props);
+    }
+
+  _componentWillUnmount() {
+    this.componentWillUnmount();
+  }
+
+  componentWillUnmount() {}
 
   setProps = (nextProps: any) => {
     if (!nextProps) {
@@ -133,12 +135,12 @@ class Block {
     this._addEvents();
   }
 
-  private compile(template: string, context: any) {
-    const contextAndStubs = {...context, __refs: this.refs};
-
-    Object.entries(this.children).forEach(([key, child]) => {
-      contextAndStubs[key] = `<div data-id="${child.id}"></div>`;
-    })
+  private compile(template: string, context: object) {
+    const contextAndStubs = {
+      ...context,
+      __refs: this.refs,
+      __children: []
+    };
 
     const html = Handlebars.compile(template)(contextAndStubs);
 
@@ -162,7 +164,18 @@ class Block {
   }
 
   getContent() {
-    return this.element;
+    // Хак, чтобы вызвать CDM только после добавления в DOM
+    if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+      setTimeout(() => {
+        if (
+          this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE
+        ) {
+          this.dispatchComponentDidMount();
+        }
+      }, 100);
+    }
+    
+    return this._element;
   }
 
   _makePropsProxy(props: any) {
@@ -188,11 +201,6 @@ class Block {
         throw new Error("Нет доступа");
       }
     });
-  }
-
-  _createDocumentElement(tagName: string) {
-    // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
-    return document.createElement(tagName);
   }
 
   show() {

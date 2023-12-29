@@ -28,5 +28,5 @@ registerComponent('ListCat', Components.ListCatCards);
 
 
 
-document.addEventListener('DOMContentLoaded', () => navigate('list'));
+document.addEventListener('DOMContentLoaded', () => navigate('login'));
 

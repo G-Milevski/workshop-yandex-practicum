@@ -18,10 +18,10 @@ export class InputField extends Block {
         const value = this.refs.input.element.value;
         const error = this.props.validate?.(value);
         if (error) {
-            // this.refs.errorLine.setProps({ error });
+            this.refs.errorLine.setProps({ error });
             return false;
         }
-        // this.refs.errorLine.setProps({ error: undefined });
+        this.refs.errorLine.setProps({ error: undefined });
         return true;
     }
 

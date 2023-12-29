@@ -1,6 +1,7 @@
 import Block from "../../core/Block";
 import { navigate } from "../../core/navigate";
 import * as validators from '../../utils/validators';
+
 export class LoginPage extends Block {
     constructor() {
         super({
@@ -11,7 +12,7 @@ export class LoginPage extends Block {
                 event.preventDefault();
                 const login =  this.refs.login.value();
                 const password =  this.refs.password.value();
-                this.setProps({a: 1})
+                // this.setProps({a: 1})
 
                 if(!login) {
                     return;
