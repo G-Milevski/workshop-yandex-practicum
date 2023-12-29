@@ -1,0 +1,20 @@
+{
+  "name": "01-template",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "handlebars": "4.7.8",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "vite-plugin-handlebars": "^1.6.0"
+  },
+  "dependencies": {
+    "nanoid": "4.0.2"
+  }
+}
