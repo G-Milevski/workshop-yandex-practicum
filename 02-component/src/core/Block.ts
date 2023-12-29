@@ -135,12 +135,12 @@ class Block<Props extends object, Refs extends RefType = RefType> {
     this._addEvents();
   }
 
-  private compile(template: string, context: object) {
-    const contextAndStubs = {
-      ...context,
-      __refs: this.refs,
-      __children: []
-    };
+  private compile(template: string, context: any) {
+    const contextAndStubs = {...context, __refs: this.refs};
+
+    Object.entries(this.children).forEach(([key, child]) => {
+      contextAndStubs[key] = `<div data-id="${child.id}"></div>`;
+    })
 
     const html = Handlebars.compile(template)(contextAndStubs);
 
