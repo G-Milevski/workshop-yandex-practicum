@@ -26,8 +26,4 @@ Object.entries(Components).forEach(
     ([componentName, component]) => registerComponent(componentName, component)
 )
 
-
-
-
 document.addEventListener('DOMContentLoaded', () => initApp());
-

@@ -69,7 +69,8 @@ class Block<Props extends object, Refs extends RefType = RefType> {
     this.componentDidMount();
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+  }
 
   public dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
@@ -106,7 +107,8 @@ class Block<Props extends object, Refs extends RefType = RefType> {
     this.componentWillUnmount();
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+  }
 
   setProps = (nextProps: any) => {
     if (!nextProps) {

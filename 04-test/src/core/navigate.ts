@@ -1,12 +1,13 @@
 import * as Pages from '../pages';
 
-const pages = {
+
+
+export function navigate(page: string) {
+  const pages = {
     'login': Pages.LoginPage,
     'emails': Pages.CatMails,
     'registration': Pages.Registration
   };
-
-export function navigate(page: string) {
     const app = document.getElementById('app')!;
   
     //@ts-ignore
