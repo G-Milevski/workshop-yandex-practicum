@@ -1,12 +1,8 @@
-import { PluginOption, defineConfig } from 'vite'
-import handlebars from 'vite-plugin-handlebars';
+import { defineConfig } from 'vite'
 
 export default defineConfig({
-    root: './src',
+    root: '.',
     build: {
         outDir: 'dist'
-    },
-    plugins: [
-        handlebars()
-    ]
+    }
 })
