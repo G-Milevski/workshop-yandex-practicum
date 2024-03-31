@@ -5,3 +5,29 @@
     --text-color: #1e1e1e;
     --text-secondary-color: #999;
   }
+
+/* Сброс стилей для обнуления значений по умолчанию */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Нормализация стилей для установки единых стилей по умолчанию */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}

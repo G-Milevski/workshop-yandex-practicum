@@ -6,7 +6,8 @@ import * as Pages from './pages';
 const pages = {
   'login': [ Pages.LoginPage, {test: '123'} ],
   'list': [ Pages.ListPage ],
-  'nav': [ Pages.NavigatePage ]
+  'nav': [ Pages.NavigatePage ],
+  'sign-up': [ Pages.SignUpPage ],
 };
 
 Object.entries(Components).forEach(([ name, component ]) => {

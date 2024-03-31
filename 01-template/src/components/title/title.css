@@ -1,0 +1,14 @@
+.title {
+    margin-bottom: 0.75rem;
+    text-align: center;
+}
+
+.title__h1 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.title__h2 {
+    font-size: 20px;
+    font-weight: 700;
+}

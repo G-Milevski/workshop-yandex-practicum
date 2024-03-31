@@ -1,9 +1,14 @@
 <div class="container">
     <Form class="login-form">
-        {{> Input label="Login" }}
-        {{> Input label="Password" }}
-        {{> Button label="Sign in" type="primary" }}
-        {{> Button label="Sign up" type="link" }}
-        {{test}}
+        <div>
+            {{> Title text="Вход" className="title__h1"}}
+            {{> Input label="Логин" }}
+            {{> Input label="Пароль" }}
+        </div>
+        <div>
+            {{> Button label="Авторизоваться" type="primary" }}
+            {{> Button label="Нет аккаунта?" type="link" }}
+        </div>
+        {{!-- {{test}} --}}
     </Form>
 </div>
