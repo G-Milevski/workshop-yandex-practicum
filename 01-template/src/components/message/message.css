@@ -1,0 +1,32 @@
+.message {
+  display: flex;
+  align-self: flex-end;
+  justify-content: flex-start;
+  padding: 10px 5px;
+  position: relative;
+  /* margin: -44px 0; */
+  width: 50%;
+  z-index: 1;
+  margin: 6px 10px;
+  /* padding: 12px; */
+  background: #f8f8f8;
+  box-shadow: 0 0 6px 0 #00000024;
+  border-radius: 10px;
+}
+
+.message__incoming {
+  align-self: flex-start;
+  justify-content: flex-end;
+}
+
+.message__text {
+  font-size: 12px;
+}
+
+.message__date {
+  color: #999999;
+  font-size: 8px;
+  position: absolute;
+  right: 5px;
+  bottom: 0;
+}

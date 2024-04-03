@@ -21,6 +21,14 @@ body {
   min-height: 100vh;
 }
 
+/* .relative {
+  position: relative;
+} */
+
+/* .absolute {
+  position: absolute;
+} */
+
 .container {
   display: flex;
   align-items: center;

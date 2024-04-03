@@ -1,4 +1,4 @@
-.chat-card {
+.chat {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -9,20 +9,11 @@
   border-bottom: 1px solid #eaeaea;
 }
 
-.chat-card__active {
+.chat__active {
   background-color: var(--second-color);
 }
 
-/* .chat-card::after {
-  content: "";
-  width: 100%;
-  height: 1px;
-  background-color: var(--second-color);
-  position: absolute;
-  bottom: 0;
-} */
-
-.chat-card__avatar {
+.chat__avatar {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,7 +23,7 @@
   height: 100%;
 }
 
-.chat-card__avatar img {
+.chat__avatar img {
   width: 3.25rem;
   height: 3.25rem;
   object-fit: cover;
@@ -40,21 +31,21 @@
   border: 1px solid var(--second-color);
 }
 
-.chat-card__top {
+.chat__top {
   padding-inline-start: 3.5rem;
   padding-top: 10px;
 }
 
-.chat-card__title {
+.chat__title {
   font-size: 16px;
   font-weight: 700;
 }
 
-.chat-card__date {
+.chat__date {
     font-size: 10px;
 }
 
-.chat-card__desc {
+.chat__desc {
   font-size: 12px;
   padding-inline-start: 3.5rem;
   padding-bottom: 10px;

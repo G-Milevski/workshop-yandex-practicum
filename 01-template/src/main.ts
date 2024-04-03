@@ -10,6 +10,7 @@ const pages = {
   'sign-up': [ Pages.SignUpPage ],
   '404': [ Pages.Page404 ],
   '500': [ Pages.Page500 ],
+  'chat': [ Pages.Chat ],
 };
 
 Object.entries(Components).forEach(([ name, component ]) => {
