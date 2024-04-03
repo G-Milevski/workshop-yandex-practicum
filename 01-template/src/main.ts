@@ -8,6 +8,8 @@ const pages = {
   'list': [ Pages.ListPage ],
   'nav': [ Pages.NavigatePage ],
   'sign-up': [ Pages.SignUpPage ],
+  '404': [ Pages.Page404 ],
+  '500': [ Pages.Page500 ],
 };
 
 Object.entries(Components).forEach(([ name, component ]) => {
