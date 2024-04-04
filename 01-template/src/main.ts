@@ -5,12 +5,12 @@ import * as Pages from './pages';
 
 const pages = {
   'login': [ Pages.LoginPage, {test: '123'} ],
-  'list': [ Pages.ListPage ],
+  //'list': [ Pages.ListPage ],
   'nav': [ Pages.NavigatePage ],
   'sign-up': [ Pages.SignUpPage ],
   '404': [ Pages.Page404 ],
   '500': [ Pages.Page500 ],
-  'chat': [ Pages.Chat ],
+  'app': [ Pages.App ],
 };
 
 Object.entries(Components).forEach(([ name, component ]) => {

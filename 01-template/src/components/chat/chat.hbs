@@ -3,12 +3,15 @@
     <img src={{avatar}} alt={{title}} />
   </div>
   <div class="chat__top">
-    <div class="flex__between">
+    <div class="flex justify-between">
         <span class="chat__title">{{title}}</span>
         <span class="chat__date">{{date}}</span>
     </div>
   </div>
   <div class="chat__desc">
-    <span>{{desc}}</span>  
+    <span>{{desc}}</span>
+    {{#if new_message}}
+      <span class="chat__new-message">{{new_message}}</span>
+    {{/if}}
   </div>
 </a>

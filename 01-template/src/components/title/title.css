@@ -1,9 +1,10 @@
 .title {
-    margin-bottom: 0.75rem;
+    
 }
 
 .title__h1 {
     font-size: 30px;
+    margin-bottom: 0.75rem;
     /* font-weight: 700; */
 }
 

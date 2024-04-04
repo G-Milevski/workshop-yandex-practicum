@@ -9,16 +9,17 @@ export { default as ChatList } from "./chat-list.hbs?raw";
 Handlebars.registerHelper("cats", () => {
   return [
     {
-      title: "cat-1",
+      title: "Андрей",
       avatar: cat1,
       date: "10:49",
       desc: "Description cat-1 meow",
+      new_message: 3
     },
     {
-      title: "cat-2",
+      title: "Вадим",
       avatar: cat2,
       date: "12:00",
-      desc: "Description cat-2 cat-2 meow meow",
+      desc: "Вы: Круто!",
       active: true,
     },
     {
@@ -26,6 +27,7 @@ Handlebars.registerHelper("cats", () => {
       avatar: cat3,
       date: "15:12",
       desc: "Description cat-3 cat-3 cat-3",
+      new_message: 1
     },
     {
       title: "cat-1",
@@ -38,7 +40,6 @@ Handlebars.registerHelper("cats", () => {
       avatar: cat2,
       date: "Ср",
       desc: "Description cat-2 cat-2 meow meow",
-      active: true,
     },
     {
       title: "cat-3",

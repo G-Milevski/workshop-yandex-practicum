@@ -25,5 +25,10 @@ Handlebars.registerHelper("message", () => {
       date: "14:49",
       incoming: true,
     },
+    {
+      photo: 'src/assets/camera.png',
+      date: "14:49",
+      incoming: true,
+    }
   ];
 });

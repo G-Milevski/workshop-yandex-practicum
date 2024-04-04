@@ -1,0 +1,16 @@
+.app {
+  height: 100vh;
+  background: var(--bg-color);
+}
+.app__left {
+  min-width: 310px;
+  display: flex;
+  flex-direction: column;
+}
+.app__right {
+  display: flex;
+  flex-direction: column;
+}
+.app__border {
+  border: 1px solid var(--border-color);
+}

@@ -4,55 +4,75 @@
     --error-color: #ff2f2f;
     --text-color: #1e1e1e;
     --text-secondary-color: #999;
+    --bg-color: #fbfbfb;
+    --bg-second-color: #efefef;
+    --border-color: #eaeaea;
   }
-
 /* Сброс стилей для обнуления значений по умолчанию */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
 /* Нормализация стилей для установки единых стилей по умолчанию */
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  background-color: #f4f4f4;
+  /* background-color: #f4f4f4; */
   min-height: 100vh;
 }
-
 /* .relative {
   position: relative;
 } */
-
 /* .absolute {
   position: absolute;
 } */
-
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
 }
-
-.mt-4 {
-  margin-top: 1rem;
+.w-100 {
+  width: 100%;
 }
-
+.mt-4 {
+  margin-top: 1rem!important;
+}
+.ml-1 {
+  margin-left: 0.25rem!important;
+}
+.ml-2 {
+  margin-left: 0.5rem!important;
+}
+.mx-1 {
+  margin-left: 0.25rem!important;
+  margin-right: 0.25rem!important;
+}
+.mx-2 {
+  margin-left: 0.5rem!important;
+  margin-right: 0.5rem!important;
+}
+.mx-5 {
+  margin-left: 1.25rem!important;
+  margin-right: 1.25rem!important;
+}
+.px-5 {
+  padding-left: 1.25rem!important;
+  padding-right: 1.25rem!important;
+}
 .text-center {
   text-align: center!important;
 }
-
 .flex {
   display: flex!important;
 }
-
-.flex__column {
+.flex-column {
   flex-direction: column!important;
 }
-
-.flex__between {
-  display: flex;
-  justify-content: space-between;
+.justify-between {
+  justify-content: space-between!important;
+}
+.align-center {
+  align-items: center!important;
 }

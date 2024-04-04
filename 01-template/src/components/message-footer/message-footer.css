@@ -1,0 +1,11 @@
+.message__footer {
+    display: flex;
+    align-items: center;
+}
+.message__input {
+    background: var(--bg-second-color);
+    height: 32px;
+    border-radius: 30px;
+    padding-left: 15px;
+    border: none;
+}

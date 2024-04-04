@@ -5,28 +5,34 @@
   padding: 5px 8px;
   position: relative;
   z-index: 1;
-  margin: 6px 10px;
+  margin: 6px 0;
   background: #e4edfd;
   box-shadow: 0 0 6px 0 #00000024;
   border-radius: 10px;
   max-width: 50%;
   min-width: 40px;
 }
-
 .message__incoming {
   align-self: flex-start;
   justify-content: flex-end;
   background: #f8f8f8;
 }
-
 .message__text {
   font-size: 12px;
 }
-
 .message__date {
-  color: #999999;
+  color: #3369f3;
   font-size: 8px;
   float: right;
-  margin-left: 3px;
+  margin-left: 10px;
   margin-top: 8px;
+}
+.message__incoming .message__date {
+  color: #999999;
+}
+.message__photo img {
+  width: 100%;
+}
+.message__photo .message__date {
+  margin-top: 0;
 }

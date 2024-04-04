@@ -1,5 +1,13 @@
 <div class="message {{#if incoming}}message__incoming{{/if}} {{className}}">
+    {{#if text}}
     <div class="message__text">{{text}}
         <span class="message__date">{{date}}</span>
     </div>
+    {{/if}}
+    {{#if photo}}
+    <div class="message__photo">
+        <img src={{photo}} alt="photo" />
+        <span class="message__date">{{date}}</span>
+    </div>
+    {{/if}}
 </div>
