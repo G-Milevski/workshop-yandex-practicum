@@ -1,9 +1,18 @@
-.message__header {
+.messages__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--border-color);
   padding: 8px 0;
+  position: relative;
+}
+.messages__header:after {
+  position: absolute;
+  content: '';
+  border-bottom: 1px solid var(--border-color);
+  width: 100%;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
 }
 .circle {
   width: 34px;

@@ -11,6 +11,7 @@ const pages = {
   '404': [ Pages.Page404 ],
   '500': [ Pages.Page500 ],
   'app': [ Pages.App ],
+  'profile': [ Pages.Profile ],
 };
 
 Object.entries(Components).forEach(([ name, component ]) => {

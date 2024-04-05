@@ -1,0 +1,26 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: var(--bg-color);
+}
+.profile__avatar {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: var(--bg-second-color);
+}
+/* .app__left {
+  min-width: 310px;
+  display: flex;
+  flex-direction: column;
+}
+.app__right {
+  display: flex;
+  flex-direction: column;
+}
+.app__border {
+  border: 1px solid var(--border-color);
+} */

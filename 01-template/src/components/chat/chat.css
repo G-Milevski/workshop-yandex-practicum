@@ -5,11 +5,29 @@
   justify-content: space-between;
   position: relative;
   min-height: 3.5rem;
+  cursor: pointer;
+}
+
+.chat:after {
+  position: absolute;
+  content: '';
   border-bottom: 1px solid var(--border-color);
+  width: 95%;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+}
+
+.chat:hover {
+  background: var(--bg-second-color);
 }
 
 .chat--active {
   background-color: var(--second-color);
+}
+
+.chat--active:hover {
+  background-color: #d8e4f9;
 }
 
 .chat__avatar {

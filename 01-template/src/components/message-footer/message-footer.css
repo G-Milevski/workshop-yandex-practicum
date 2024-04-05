@@ -1,11 +1,16 @@
-.message__footer {
-    display: flex;
-    align-items: center;
+.messages__footer {
+  display: flex;
+  align-items: center;
 }
-.message__input {
-    background: var(--bg-second-color);
-    height: 32px;
-    border-radius: 30px;
-    padding-left: 15px;
-    border: none;
+.messages__area {
+  background: var(--bg-second-color);
+  padding: 7px 15px;
+  border-radius: 30px;
+  padding-left: 15px;
+  border: none;
+  resize: none;
+}
+.messages__area:focus, .messages__area:focus
+{
+  outline: none;
 }
