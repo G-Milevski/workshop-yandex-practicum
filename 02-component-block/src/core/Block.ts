@@ -22,6 +22,9 @@ export default class Block {
      *
      * @returns {void}
      */
+
+  private _eventbus;
+
   constructor(propsWithChildren = {}) {
     const eventBus = new EventBus();
     // this._meta = {
@@ -48,7 +51,7 @@ export default class Block {
  }
   
   _registerEvents(eventBus) {
-    eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
+    eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
@@ -59,14 +62,20 @@ export default class Block {
     this._element = this._createDocumentElement(tagName);
   }
   
-  init() {
+  _init() {
     // this._createResources();
+    this.init();
   
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+  }
+
+  init() {
+
   }
   
   _componentDidMount() {
     this.componentDidMount();
+    console.log('CDM')
 
     Object.values(this.children).forEach(child => {
         child.dispatchComponentDidMount();
@@ -80,6 +89,7 @@ export default class Block {
   }
   
   _componentDidUpdate(oldProps, newProps) {
+    console.log('CDU')
     const response = this.componentDidUpdate(oldProps, newProps);
     if (!response) {
       return;
@@ -113,7 +123,7 @@ export default class Block {
   
     Object.assign(this.props, nextProps);
   };
-  
+
   get element() {
     return this._element;
   }
@@ -133,7 +143,7 @@ export default class Block {
     Object.values(this.children).forEach(child => {
         const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
         
-        stub.replaceWith(child.getContent());
+        stub?.replaceWith(child.getContent());
     });
 
     if (this._element) {
@@ -150,7 +160,7 @@ export default class Block {
   getContent() {
     return this.element;
   }
-  
+
   _makePropsProxy(props) {
     // Можно и так передать this
     // Такой способ больше не применяется с приходом ES6+
