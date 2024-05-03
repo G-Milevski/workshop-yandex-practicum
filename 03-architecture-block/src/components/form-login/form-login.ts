@@ -1,8 +1,10 @@
 import Block from "../../core/Block"
+import { fillLogin } from "../../services/setAutorizationFields";
+import { connect } from "../../utils/connect";
 import { Button } from "../button"
 import { Input } from "../input"
 
-export default class FormLogin extends Block {
+class FormLogin extends Block {
     init() {
         const onChangeLoginBind = this.onChangeLogin.bind(this);
         const onLoginBind = this.onLogin.bind(this);
@@ -33,12 +35,14 @@ export default class FormLogin extends Block {
         }
 
         // this.setProps({login: inputValue})
+        // this.props.setLogin(inputValue)
+        fillLogin(inputValue)
     }
 
     onLogin() {
-        console.log({
-            login: this.props.login
-        })
+        // console.log({
+        //     login: this.props.login
+        // })
     }
 
 
@@ -56,3 +60,9 @@ export default class FormLogin extends Block {
         `)
     }
 }
+
+// export default connect(() => ({}), {
+//     setLogin: (dispatch, value) => dispatch({loginField: value}) 
+// })(FormLogin)
+
+export default FormLogin

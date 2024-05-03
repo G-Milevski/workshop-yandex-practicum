@@ -1,2 +1,4 @@
 import './list.css'
-export { default as ListPage } from './list.hbs?raw';
+import ListCatPage from './list';
+
+export default ListCatPage

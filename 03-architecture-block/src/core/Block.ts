@@ -137,20 +137,35 @@ export default class Block {
         propsAndStubs[key] = `<div data-id="${child._id}"></div>`
     });
 
+    const childrenProps = [];
+    Object.entries(propsAndStubs).forEach(([key, value]) => {
+      if(Array.isArray(value)) {
+        propsAndStubs[key] = value.map((item) => {
+          if(item instanceof Block) {
+            childrenProps.push(item)
+            return `<div data-id="${item._id}"></div>`
+          }
+
+          return item;
+        }).join('')
+      }
+  });
     const fragment = this._createDocumentElement('template');
 
     fragment.innerHTML = Handlebars.compile(this.render())(propsAndStubs);
     const newElement = fragment.content.firstElementChild;
 
-    Object.values(this.children).forEach(child => {
+    [...Object.values(this.children), ...childrenProps].forEach(child => {
         const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
         
         stub?.replaceWith(child.getContent());
     });
 
+
     if (this._element) {
-        this._element.replaceWith(newElement);
-      }
+      newElement.style.display = this._element.style.display
+      this._element.replaceWith(newElement);
+    }
   
       this._element = newElement;
 
@@ -160,6 +175,17 @@ export default class Block {
   render() {}
   
   getContent() {
+    // Хак, чтобы вызвать CDM только после добавления в DOM
+    if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+      setTimeout(() => {
+        if (
+          this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE
+        ) {
+          this.dispatchComponentDidMount();
+        }
+      }, 100);
+    }
+
     return this.element;
   }
 

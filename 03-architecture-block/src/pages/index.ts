@@ -1,3 +1,3 @@
 export {default as LoginPage} from './login'
-export {ListPage} from './list'
-export {NavigatePage} from './navigate'
+export {default as ListPage} from './list'
+export {default as Page404} from './404'

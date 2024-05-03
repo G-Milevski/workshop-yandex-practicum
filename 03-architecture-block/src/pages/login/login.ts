@@ -1,15 +1,10 @@
 import { FormLogin, FormWrapper, Input } from "../../components"
 import Block from "../../core/Block"
+import { login } from "../../services/auth";
+import { connect } from "../../utils/connect";
 
-export default class LoginPage extends Block {
+class LoginPage extends Block {
     constructor(props) {
-        const inputComponents = props.inputs.reduce((acc, data) => {
-            const component = new Input({label: data});
-            acc[component._id] = component;
-            return acc;
-        }, {});
-
-
         super({
             ...props,
             FormLogin: new FormWrapper({
@@ -17,20 +12,29 @@ export default class LoginPage extends Block {
                 formBody: new FormLogin({}),
                 onSubmit: (e) => {
                     e.preventDefault();
-                    console.log('submit')
+                    login({login: this.props.loginField, password: ''})
                 }
             }),
-            inputComponentKeys: Object.keys(inputComponents),
-            ...inputComponents
         })
     }
 
     render() {
         return `
             <div class="container">
-                {{{ FormLogin }}}
-                ${this.props.inputComponentKeys.map((key) => `{{{ ${key} }}}`).join('')}
+                {{#if isLoading}}
+                    <h2>SPINER</h2>
+                {{else}}
+                    {{{ FormLogin }}}
+                    {{#if loginError}}
+                        <p>{{{loginError}}}</p>
+                    {{/if}}
+                {{/if}}
             </div>
         `
     }
 }
+
+
+const mapStateToPropsShort = ({loginField, isLoading, loginError}) => ({loginField, isLoading, loginError})
+
+export default connect(mapStateToPropsShort)(LoginPage)
