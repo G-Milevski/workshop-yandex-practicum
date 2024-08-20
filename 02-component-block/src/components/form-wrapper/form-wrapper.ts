@@ -2,7 +2,12 @@ import Block from "../../core/Block";
 
 export default class FormWrapper extends Block {
     constructor(props) {
-        super(props);
+        super({
+            ...props,
+            events: {
+                submit: props.onSubmit
+            }
+        });
     }
 
     render() {

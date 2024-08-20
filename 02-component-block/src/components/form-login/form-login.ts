@@ -20,6 +20,8 @@ export default class FormLogin extends Block {
             ButtonLogin,
             ButtonCreateAccount
         }
+
+        this.name = 'LoginPage'
     }
 
 
@@ -29,10 +31,11 @@ export default class FormLogin extends Block {
             this.children.InputLogin.setProps({error: true, errorText: 'some error'});
             return;
         } else {
-            this.children.InputLogin.setProps({error: false, errorText: null})
+            this.children.InputLogin.setProps({error: false, errorText: null});
+            
         }
 
-        // this.setProps({login: inputValue})
+        this.setProps({login: inputValue})
     }
 
     onLogin() {
@@ -45,14 +48,14 @@ export default class FormLogin extends Block {
 
     render() {
         return (`
-            <div>
+            <form>
                 <div class="form-content">
                     {{{ InputLogin }}}
                     {{{ FormPassword }}}
                 </div>
                 {{{ ButtonLogin }}}
                 {{{ ButtonCreateAccount }}}
-            </div>
+            </form>
         `)
     }
 }

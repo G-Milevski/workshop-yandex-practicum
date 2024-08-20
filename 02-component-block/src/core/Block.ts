@@ -1,8 +1,10 @@
-//@ts-nocheck
+
 
 import EventBus from "./EventBus";
 import {nanoid} from 'nanoid';
 import Handlebars from "handlebars";
+
+type TEvents = Values<typeof Block.EVENTS>
 
 export default class Block {
     static EVENTS = {
@@ -10,30 +12,21 @@ export default class Block {
       FLOW_CDM: "flow:component-did-mount",
       FLOW_CDU: "flow:component-did-update",
       FLOW_RENDER: "flow:render"
-    };
+    } as const;
   
   _element = null;
   _meta = null;
   _id = nanoid(6);
   
-  /** JSDoc
-     * @param {string} tagName
-     * @param {Object} props
-     *
-     * @returns {void}
-     */
 
   private _eventbus;
 
   constructor(propsWithChildren = {}) {
-    const eventBus = new EventBus();
-    // this._meta = {
-    //   tagName,
-    //   props
-    // };
+    const eventBus = new EventBus<TEvents>();
     const {props, children} = this._getChildrenAndProps(propsWithChildren);
     this.props = this._makePropsProxy({ ...props });
     this.children = children;
+    this.name = ''
   
     this.eventBus = () => eventBus;
   
@@ -50,32 +43,24 @@ export default class Block {
   })
  }
   
-  _registerEvents(eventBus) {
+  _registerEvents(eventBus: EventBus<TEvents>) {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
   
-  _createResources() {
-    const { tagName } = this._meta;
-    this._element = this._createDocumentElement(tagName);
-  }
-  
   _init() {
-    // this._createResources();
     this.init();
   
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
   init() {
-
   }
   
   _componentDidMount() {
     this.componentDidMount();
-    console.log('CDM')
 
     Object.values(this.children).forEach(child => {
         child.dispatchComponentDidMount();
@@ -137,7 +122,18 @@ export default class Block {
 
     const fragment = this._createDocumentElement('template');
 
+    if(this.name === 'LoginPage') {
+      console.log(this.render())
+      console.log(propsAndStubs)
+
+    }
+
     fragment.innerHTML = Handlebars.compile(this.render())(propsAndStubs);
+    if(this.name === 'LoginPage') {
+      console.log(fragment.innerHTML)
+
+    }
+
     const newElement = fragment.content.firstElementChild;
 
     Object.values(this.children).forEach(child => {
@@ -147,18 +143,34 @@ export default class Block {
     });
 
     if (this._element) {
-        this._element.replaceWith(newElement);
-      }
+      this._element.replaceWith(newElement);
+    }
   
       this._element = newElement;
 
     this._addEvents();
+
+    if(this.name === 'LoginPage') {
+      console.log(newElement.innerHTML)
+
+    }
   }
   
   render() {}
   
   getContent() {
-    return this.element;
+    // Хак, чтобы вызвать CDM только после добавления в DOM
+    if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+      setTimeout(() => {
+        if (
+          this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE
+        ) {
+          this.dispatchComponentDidMount();
+        }
+      }, 100);
+    }
+    
+    return this._element;
   }
 
   _makePropsProxy(props) {
@@ -191,11 +203,11 @@ export default class Block {
     return document.createElement(tagName);
   }
   
-  show() {
-    this.getContent().style.display = "block";
-  }
+    show() {
+      this.getContent().style.display = "block";
+    }
   
-  hide() {
-    this.getContent().style.display = "none";
-  }
+    hide() {
+      this.getContent().style.display = "none";
+    }
   }
