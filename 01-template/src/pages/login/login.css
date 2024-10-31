@@ -3,7 +3,6 @@
     justify-content: center;
 }
 
-
 .login-form {
     display: flex;
     flex-direction: column;
@@ -11,4 +10,4 @@
     width: 340px;
     box-shadow: 0 0 6px 0 #00000024;
     border-radius: 12px;
-}   
+}
