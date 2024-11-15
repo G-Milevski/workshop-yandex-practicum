@@ -3,7 +3,7 @@ import sinon from 'sinon';
 import LoginPage from "./"
 
 describe('Login Page', () => {
-    it.only('Show error', () => {
+    it('Show error', () => {
         const loginPage = new LoginPage();
         const component = loginPage.getContent()!;
 

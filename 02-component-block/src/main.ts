@@ -1,45 +1,41 @@
-import Handlebars from 'handlebars';
-import * as Components from './components';
-import * as Pages from './pages';
+import Handlebars from "handlebars";
+import * as Components from "./components";
+import * as Pages from "./pages";
 
-declare global {
-  export type Keys<T extends Record<string, unknown>> = keyof T;
-  export type Values<T extends Record<string, unknown>> = T[Keys<T>];
-}
-
+import renderDOM from "./core/renderDom";
 
 const pages = {
-  // 'login': [ Pages.LoginPage, {inputs: ['label 1', 'label 2', 'label 3']} ],
-  'login': [ Pages.LoginPage, {inputs: [] }],
-  'list': [ Pages.ListPage ],
-  'nav': [ Pages.NavigatePage ]
+  login: [Pages.LoginPage],
+  list: [Pages.ListPage],
+  nav: [Pages.NavigatePage],
 };
 
-Object.entries(Components).forEach(([ name, component ]) => {
-  Handlebars.registerPartial(name, component);
+Object.entries(Components).forEach(([name, template]) => {
+  if (typeof template === "function") {
+    return;
+  }
+  Handlebars.registerPartial(name, template);
 });
 
 function navigate(page: string) {
   //@ts-ignore
-  const [ source, context ] = pages[page];
-  const container = document.getElementById('app')!;
-
-  if(source instanceof Object) {
-    const page = new source(context);
-    container.innerHTML = '';
-    container.append(page.getContent());
-    // page.dispatchComponentDidMount();
+  const [source, context] = pages[page];
+  if (typeof source === "function") {
+    renderDOM(new source({}));
     return;
   }
 
-  container.innerHTML = Handlebars.compile(source)(context);
+  const container = document.getElementById("app")!;
+
+  const temlpatingFunction = Handlebars.compile(source);
+  container.innerHTML = temlpatingFunction(context);
 }
 
-document.addEventListener('DOMContentLoaded', () => navigate('login'));
+document.addEventListener("DOMContentLoaded", () => navigate("nav"));
 
-document.addEventListener('click', e => {
+document.addEventListener("click", (e) => {
   //@ts-ignore
-  const page = e.target.getAttribute('page');
+  const page = e.target.getAttribute("page");
   if (page) {
     navigate(page);
 
@@ -47,6 +43,3 @@ document.addEventListener('click', e => {
     e.stopImmediatePropagation();
   }
 });
-
-
-

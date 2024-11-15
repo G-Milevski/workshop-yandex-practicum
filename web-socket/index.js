@@ -96,11 +96,14 @@ const createWebSocket = async (chatid, user) => {
         console.log('Соединение установлено');
 
         const sendBtn = document.getElementById('send-message');
+        const select = document.getElementById('typeMessage');
+
         sendBtn.addEventListener('click', () => {
+            console.log()
             const textArea = document.getElementById('type-messages');
             socket.send(JSON.stringify({
                 content: textArea.value,
-                type: 'message',
+                type: `${select.value}`,
               }));
         })
       });

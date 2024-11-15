@@ -33,22 +33,28 @@ describe('Block', () => {
 
     // написать тест на то что комопнент создается с переданными пропсами
     it('Должен создать компонент с состоянием из конструктора', () => {
-        const text = 'Hello'
+        // Arrange
+        const text = 'Hello';
+
+        // Act
         const pageComponent = new PageClass({text});
 
-        const spanText = pageComponent.element?.querySelector('#test-text')?.innerHTML;
-
+        // Assert
+        const spanText = pageComponent.element?.querySelector('#test-text')?.textContent;
         expect(spanText).to.be.eq(text);
 
     })
     // проверить что реактивность у копонента работает
     it('Компонент должен иметь реактивное повдение', () => {
+        // Arrange
         const text = 'new value'
         const pageComponent = new PageClass({text: 'Hello'});
 
+         // Act
         pageComponent.setProps({text})
-        const spanText = pageComponent.element?.querySelector('#test-text')?.innerHTML;
 
+        // Assert
+        const spanText = pageComponent.element?.querySelector('#test-text')?.innerHTML;
         expect(spanText).to.be.eq(text);
 
     })

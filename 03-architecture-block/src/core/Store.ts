@@ -31,3 +31,4 @@ export class Store extends EventBus {
     this.emit(StoreEvents.Updated, prevState, nextState);
   }
 }
+

@@ -1,0 +1,5 @@
+{
+    "spec": "src/**/*.spec.ts",
+    "loader": ["ts-node/esm", "./loader-css.js", "./loader-jpg.js"],
+    "require": ["mochaSetup.js"]
+}

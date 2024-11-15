@@ -1,4 +1,6 @@
-class Route {
+import { RouteInterface } from "./Router";
+
+class Route implements RouteInterface{
     constructor(pathname, view, props) {
         this._pathname = pathname;
         this._blockClass = view;
@@ -6,7 +8,7 @@ class Route {
         this._props = props;
     }
 
-    navigate(pathname) {
+    navigate(pathname: string) {
         if (this.match(pathname)) {
             this._pathname = pathname;
             this.render();
@@ -36,6 +38,7 @@ class Route {
         }
 
         this._block.show();
+        this._block.componentDidMount();
     }
 }
 

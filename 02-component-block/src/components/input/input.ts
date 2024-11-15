@@ -1,18 +1,17 @@
-import Block from "../../core/Block";
+import Block from "../../core/block";
 
-class Input extends Block {
-    constructor(props) {
-        super(props)
-    }
-
-    render(): string {
-        return `
-            <input
-                class="input__element"
-                placeholder=""
-            />
-        `
-    }
+type InputProps = {
+  label: string;
+  onChange: () => void;
+  onBlur: () => void;
+};
+export default class Input extends Block {
+  constructor(props: InputProps) {
+    super("input", {
+      ...props,
+      attrs: {
+        placeholder: "",
+      },
+    });
+  }
 }
-
-export default Input;

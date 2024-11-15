@@ -1,4 +1,3 @@
-// const {JSDOM} = require('jsdom')
 import {JSDOM} from 'jsdom'
 import * as Components from './src/components';
 import { registerComponent } from './src/core/resgiterComponent';

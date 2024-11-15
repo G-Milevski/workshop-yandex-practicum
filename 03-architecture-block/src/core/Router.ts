@@ -1,6 +1,14 @@
 import Route from "./Route";
 
+export interface RouteInterface {
+  render: () => void;
+  match: (path: string) => boolean;
+  leave: () => void;
+}
+
 class Router {
+    public routes: RouteInterface[] = [];
+
     constructor(rootQuery) {
         if (Router.__instance) {
             return Router.__instance;
@@ -34,15 +42,12 @@ class Router {
           return;
         }
 
-// add code
        if (this._currentRoute && this._currentRoute !== route) {
             this._currentRoute.leave();
         }
-//
+
         this._currentRoute = route;
-        if(route !== null){
-          route.render(route, pathname);
-        }
+        route.render(route, pathname);
     }
 
     go(pathname) {
@@ -67,4 +72,4 @@ class Router {
     }
 }
 
-export default Router;
+export default  Router;

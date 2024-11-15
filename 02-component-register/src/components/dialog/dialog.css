@@ -1,0 +1,32 @@
+.dialog-container {
+    background-color: rgba(0, 0, 0, .7);
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+}
+
+.dialog {
+    background-color: white;
+    border-radius: 12px ;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 340px;
+    padding: 40px;
+}
+
+.dialog__title {
+    text-align: center;
+    margin: 0;
+}
+
+.dialog__body {
+    padding: 45px 0;
+}
+
+.dialog__footer {
+    display: flex;
+    flex-direction: column;
+}

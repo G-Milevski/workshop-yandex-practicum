@@ -1,9 +1,7 @@
-import { CatCard, ListCard } from "../../components"
+import { Button, CatCard, ListCard } from "../../components"
 import Block from "../../core/Block"
 import { loadCats } from "../../services/cats";
 import { connect } from "../../utils/connect";
-
-
 
 class ListPage extends Block {
     componentDidMount(oldProps: any): void {
@@ -11,12 +9,19 @@ class ListPage extends Block {
     }
     init(): void {
         const onCardClikBind = this.onCardClick.bind(this);
+        const linkToLoginPageHandlerBind = this.linkToLoginPageHandler.bind(this);
 
+        const BUttonLinkToLoginPage = new Button({label: 'Пкерейти на логин страницу', type: 'link', onClick: linkToLoginPageHandlerBind});
         const ListCat = new ListCard({cards: this.mapCatCardToCompoennt(this.cats, null, onCardClikBind) || []})
 
         this.children = {
-            ListCat
+            ListCat,
+            BUttonLinkToLoginPage
         }
+    }
+
+    linkToLoginPageHandler() {
+        this.props.router.go('/login')
     }
 
     mapCatCardToCompoennt(catCard, activeId, hundler) {
@@ -50,6 +55,7 @@ class ListPage extends Block {
     render() {
         return `
             <div>
+                {{{BUttonLinkToLoginPage}}}
                 {{{ ListCat }}}
                 {{#if selectCat}}
                     <h1>{{{selectCat.name}}}</h1>
