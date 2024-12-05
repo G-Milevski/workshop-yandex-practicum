@@ -17,21 +17,25 @@ export default class LoginPage extends Block {
       InputLogin: new Input({
         label: "Login",
         onChange: (e) => {
+          console.log('test')
           const value = e.target.value;
-          const error = value === "error" ? "Some error is happened." : "";
+          let error = '';
+          if(value === "error") {
+            error = "Some error is happened."
+          }
+          if(value.length < 3) {
+            error = "More 3 characters."
+          }
           this.children.InputLogin.setProps({
             error,
           });
-          if (!error) {
-            return;
-          }
 
-          this.setProps({
-            formState: {
-              ...this.props.formState,
-              login: value,
-            },
-          });
+          // this.setProps({
+          //   formState: {
+          //     ...this.props.formState,
+          //     login: value,
+          //   },
+          // });
         },
       }),
       InputPassword: new Input({ label: "Password" }),
@@ -39,7 +43,21 @@ export default class LoginPage extends Block {
       SignUpButton: new Button({
         label: "Sign up",
         color: "link",
-        onClick: () => console.log(this.props.formState),
+        onClick: (e) => {
+          e.preventDefault();
+          console.log(this.children.InputLogin.value())
+          // let error = ''
+          // if(this.props.formState.login === "error") {
+          //   error = "Some error is happened."
+          // }
+          // if(this.props.formState.login.length < 3) {
+          //   error = "More 3 characters."
+          // }
+
+          // this.children.InputLogin.setProps({
+          //   error,
+          // });
+        },
       }),
     });
   }

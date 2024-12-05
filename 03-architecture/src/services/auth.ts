@@ -1,52 +1,31 @@
+import { ROUTER } from "../constants";
 import AuthApi from "../api/auth";
-import { CreateUser, LoginRequestData, UserDTO } from "../api/type";
-import { navigate } from "../core/navigate";
-import { apiHasError } from '../utils/apiHasError'
-import { transformUser } from "../utils/apiTransformers";
 
 const authApi = new AuthApi();
 
-const getUser = async() => {
-    const responseUser = await authApi.me();
-    if (apiHasError(responseUser)) {
-        throw Error(responseUser.reason)
-    }
+export const login = async (model) => {
+  window.store.set({ isLoading: true });
+  try {
+    await authApi.login(model);
+    window.router.go(ROUTER.cats);
+  } catch (responsError) {
+    const error = await responsError.json();
+    window.store.set({ loginError: error.reason });
+  } finally {
+    window.store.set({ isLoading: false });
+  }
+};
 
-    return transformUser(responseUser as UserDTO);
-}
-
-const signin = async (data: LoginRequestData) => {
-    const response = await authApi.login(data);
-    if (apiHasError(response)) {
-        throw Error(response.reason)
-    }
-
-    const me = await getUser();
-
-    window.store.set({user: me});
-    navigate('emails')
-}
-
-const signup = async (data: CreateUser) => {
-    const response = await authApi.create(data);
-    if (apiHasError(response)) {
-        throw Error(response.reason)
-    }
-
-    const me = await getUser();
-    window.store.set({user: me});
-    navigate('emails')
-}
-
-const logout = async () => {
-    await authApi.logout();
-    window.store.set({user: null, chats: []});
-    navigate('login')
-}
-
-export {
-    signin,
-    signup,
-    logout,
-    getUser
-}
+export const checkLoginUser = async () => {
+  window.store.set({ isLoading: true });
+  try {
+    const user = await authApi.me();
+    window.router.go(ROUTER.cats);
+    window.store.set({ user });
+  } catch (responsError) {
+    const error = await responsError.json();
+    window.store.set({ loginError: error.reason });
+  } finally {
+    window.store.set({ isLoading: false });
+  }
+};

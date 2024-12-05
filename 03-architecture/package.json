@@ -1,5 +1,5 @@
 {
-  "name": "01-template",
+  "name": "02-block",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,10 +10,8 @@
   },
   "devDependencies": {
     "handlebars": "4.7.8",
+    "nanoid": "^5.0.8",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
-  },
-  "dependencies": {
-    "nanoid": "^4.0.2"
   }
 }

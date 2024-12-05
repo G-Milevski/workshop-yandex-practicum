@@ -1,3 +1,3 @@
-export {default as LoginPage} from './login'
-export {default as CatMails} from './cats-mail'
-export {default as Registration} from './registration'
+export {LoginPage} from './login'
+export {ListPage} from './list'
+export {NavigatePage} from './navigate'

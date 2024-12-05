@@ -1,33 +1,37 @@
-import * as Components from './components';
-import { registerComponent } from './core/resgiterComponent';
-import { Store } from './core/Store';
-import { AppState } from './type';
-import { initApp } from './services/initApp';
+import Handlebars from "handlebars";
+import * as Components from "./components";
+import * as Pages from "./pages";
 
+import Router from "./core/Router";
+import { ROUTER } from "./constants";
+import { Store, StoreEvents } from "./core/Store";
 
-declare global {
-  interface Window {
-    store: Store<AppState>;
+import * as authServices from "./services/auth";
+
+Object.entries(Components).forEach(([name, template]) => {
+  if (typeof template === "function") {
+    return;
   }
+  Handlebars.registerPartial(name, template);
+});
 
-  type Nullable<T> = T | null;
-
-}
-
-const initState: AppState = {
-  error: null,
+window.store = new Store({
+  isLoading: false,
   user: null,
-  isOpenDialogChat: false,
-  chats: []
-}
-window.store = new Store<AppState>(initState);
+  loginError: null,
+});
 
-Object.entries(Components).forEach(
-    ([componentName, component]) => registerComponent(componentName, component)
-)
+store.on(StoreEvents.Updated, (prevState, newState) => {
+  console.log("prevState", prevState);
+  console.log("newState", newState);
+});
 
+// authServices.checkLoginUser();
 
-
-
-document.addEventListener('DOMContentLoaded', () => initApp());
-
+const APP_ROOT_ELEMNT = "#app";
+window.router = new Router(APP_ROOT_ELEMNT);
+window.router
+  .use(ROUTER.login, Pages.LoginPage)
+  .use(ROUTER.cats, Pages.ListPage)
+  .use("*", Pages.NavigatePage)
+  .start();

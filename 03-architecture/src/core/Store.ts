@@ -1,24 +1,29 @@
-import EventBus from './EventBus';
+import EventBus from "./eventBus";
 
 export enum StoreEvents {
-    Updated = 'Updated'
+  Updated = "Updated",
 }
 
-export class Store<State extends Record<string, any>> extends EventBus {
-  private state: State = {} as State;
+export class Store extends EventBus {
+  private state = {};
 
-  constructor(defaultState: State) {
+  constructor(defaultState) {
+    if (Store.__instance) {
+      return Store.__instance;
+    }
     super();
 
     this.state = defaultState;
     this.set(defaultState);
+
+    Store.__instance = this;
   }
 
   public getState() {
     return this.state;
   }
 
-  public set(nextState: Partial<State>) {
+  public set(nextState) {
     const prevState = { ...this.state };
 
     this.state = { ...this.state, ...nextState };

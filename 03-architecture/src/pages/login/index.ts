@@ -1,4 +1,3 @@
-import './login.css'
-import LoginPage from './login';
-export default LoginPage;
-
+import "./login.css";
+// export { default as LoginPage } from './login.hbs?raw';
+export { default as LoginPage } from "./login";
