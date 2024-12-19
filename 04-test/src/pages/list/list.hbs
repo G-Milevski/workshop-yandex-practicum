@@ -1,0 +1,9 @@
+<div>
+    {{> Button label="go to home" type="link" }}
+    {{> ListCat cats=cats }}
+
+    {{#if showDialog}}
+        {{> RemoveCatDialog }}
+    {{/if}}
+
+</div>
