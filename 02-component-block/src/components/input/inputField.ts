@@ -21,11 +21,6 @@ export default class InputField extends Block {
     });
   }
 
-
-  public value() {
-    return this.children.Input.getContent().value;
-  }
-
   public render(): string {
     return `
         <label class="input__container">

@@ -30,34 +30,26 @@ export default class LoginPage extends Block {
             error,
           });
 
-          // this.setProps({
-          //   formState: {
-          //     ...this.props.formState,
-          //     login: value,
-          //   },
-          // });
+          this.setProps({
+            formState: {
+                ...this.props.formState,
+                login: value
+            }
+        })
         },
       }),
       InputPassword: new Input({ label: "Password" }),
-      SignInButton: new Button({ label: "Sign in", color: "primary" }),
-      SignUpButton: new Button({
-        label: "Sign up",
-        color: "link",
+      SignInButton: new Button({
+        label: "Sign in",
+        color: "primary",
         onClick: (e) => {
           e.preventDefault();
-          console.log(this.children.InputLogin.value())
-          // let error = ''
-          // if(this.props.formState.login === "error") {
-          //   error = "Some error is happened."
-          // }
-          // if(this.props.formState.login.length < 3) {
-          //   error = "More 3 characters."
-          // }
-
-          // this.children.InputLogin.setProps({
-          //   error,
-          // });
+          console.log(this.props.formState.login)
         },
+      }),
+      SignUpButton: new Button({
+        label: "Sign up",
+        color: "link"
       }),
     });
   }

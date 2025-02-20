@@ -12,8 +12,7 @@ export default class ListCat extends Block {
         onOk: () => this.setProps({ showDialog: false }),
       }),
       CatDetail: new CatDetail({}),
-      rawCats: [...props.cats],
-      cats: props.cats.map(
+      catComponents: props.cats.map(
         (props, index) =>
           new CatCard({
             ...props,
@@ -30,9 +29,9 @@ export default class ListCat extends Block {
 
   render() {
     const { activeCatIndex } = this.props;
-    const { cats, CatDetail } = this.children;
+    const { catComponents, CatDetail } = this.children;
 
-    cats.forEach((cat, index) => {
+    catComponents.forEach((cat, index) => {
       if (index === activeCatIndex) {
         cat.setProps({ active: true });
         return;
@@ -43,11 +42,11 @@ export default class ListCat extends Block {
       }
     });
 
-    const currentCat = this.props.rawCats[activeCatIndex];
+    const currentCat = this.props.cats[activeCatIndex];
     CatDetail.setProps({name: currentCat?.name})
 
     return `
-      {{#each cats}}
+      {{#each catComponents}}
         {{{ this }}}
       {{/each}}
       {{#if showDialog}}
