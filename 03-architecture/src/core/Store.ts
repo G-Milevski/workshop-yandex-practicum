@@ -13,7 +13,6 @@ export class Store extends EventBus {
     }
     super();
 
-    this.state = defaultState;
     this.set(defaultState);
 
     Store.__instance = this;

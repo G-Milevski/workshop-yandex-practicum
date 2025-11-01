@@ -2,11 +2,9 @@ import Handlebars from "handlebars";
 import * as Components from "./components";
 import * as Pages from "./pages";
 
-import Router from "./core/Router";
 import { ROUTER } from "./constants";
+import Router from "./core/Router";
 import { Store, StoreEvents } from "./core/Store";
-
-import * as authServices from "./services/auth";
 
 Object.entries(Components).forEach(([name, template]) => {
   if (typeof template === "function") {
@@ -17,8 +15,11 @@ Object.entries(Components).forEach(([name, template]) => {
 
 window.store = new Store({
   isLoading: false,
-  user: null,
-  loginError: null,
+  user: {},
+  chats: [],
+  selectedChat: 1,
+  messages: [],
+  apiError: null,
 });
 
 store.on(StoreEvents.Updated, (prevState, newState) => {

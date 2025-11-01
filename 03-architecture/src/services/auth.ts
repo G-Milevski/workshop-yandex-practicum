@@ -1,5 +1,5 @@
-import { ROUTER } from "../constants";
 import AuthApi from "../api/auth";
+import { ROUTER } from "../constants";
 
 const authApi = new AuthApi();
 

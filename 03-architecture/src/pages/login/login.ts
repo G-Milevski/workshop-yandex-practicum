@@ -1,7 +1,8 @@
-import { connect } from "../../utils/connect";
 import { Button, Input } from "../../components";
 import Block from "../../core/block";
 import * as authServices from "../../services/auth";
+import { connect } from "../../utils/connect";
+import { withRouter } from "../../utils/withRouter";
 
 class LoginPage extends Block {
   constructor(props) {
@@ -64,7 +65,14 @@ class LoginPage extends Block {
           // });
         },
       }),
-      SignInButton: new Button({ label: "Sign in", color: "primary" }),
+      SignInButton: new Button({
+        label: "Sign in",
+        color: "primary",
+        onClick: (e) => {
+          e.preventDefault();
+          this.props.router.go("/cats");
+        },
+      }),
       SignUpButton: new Button({
         label: "Sign up",
         color: "link",
@@ -74,8 +82,6 @@ class LoginPage extends Block {
             login: this.children.InputLogin.value(),
             password: this.children.InputPassword.value(),
           };
-
-          console.log(data);
           authServices.login(data);
         },
       }),
@@ -106,4 +112,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(LoginPage);
+export default connect(mapStateToProps)(withRouter(LoginPage));

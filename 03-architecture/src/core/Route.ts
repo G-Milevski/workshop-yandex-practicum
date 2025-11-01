@@ -1,7 +1,16 @@
+import Block from "./block";
 import { RouteInterface } from "./Router";
 
+interface BlockConstructable<P = unknown> {
+  new (props: P): Block;
+}
+
 class Route implements RouteInterface {
-  constructor(pathname, view, props) {
+  private _blockClass: BlockConstructable;
+  private _block: Block | null;
+  private _pathname: string;
+
+  constructor(pathname: string, view: BlockConstructable, props) {
     this._pathname = pathname;
     this._blockClass = view;
     this._block = null;
@@ -38,7 +47,7 @@ class Route implements RouteInterface {
 
     // this._block.show();
     this._renderDom(this._props.rootQuery, this._block);
-    this._block.componentDidMount();
+    this._block.componentDidMount({});
   }
 }
 

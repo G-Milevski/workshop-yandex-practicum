@@ -1,8 +1,10 @@
 import { Button, ListCat } from "../../components";
 import Block from "../../core/block";
+import { protectedRoute } from "../../utils/protectedRoute";
+import { withRouter } from "../../utils/withRouter";
 import catsMock from "./mockCats";
 
-export default class ListPage extends Block {
+class ListPage extends Block {
   constructor(props) {
     super("div", {
       ...props,
@@ -20,3 +22,5 @@ export default class ListPage extends Block {
     `;
   }
 }
+
+export default withRouter(protectedRoute(ListPage));
